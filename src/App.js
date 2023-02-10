@@ -3,6 +3,8 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import UnsplashAPI from "./component/api";
 
+// https://docs.google.com/document/d/1yRxzh36gv_jLEJitnOg6gkmUAh7ctdRjYd0rkCJZiUw/edit#
+
 function App() {
   const [searchTerm, setSearch] = useState();
   const [arr, setArr] = useState([]);
