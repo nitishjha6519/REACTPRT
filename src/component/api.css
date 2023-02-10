@@ -1,0 +1,24 @@
+.image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  visibility: hidden;
+}
+
+.image:hover .svg {
+  visibility: visible;
+}
