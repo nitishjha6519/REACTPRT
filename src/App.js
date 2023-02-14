@@ -10,14 +10,10 @@ function App() {
   const [arr, setArr] = useState([]);
   const [bookmark, setBookmark] = useState([]);
   const [toggle, setToggle] = useState(false);
+  const [page, setPage] = useState(1);
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    setToggle(false);
-
-    console.log("clicked");
-
-    let URL = `https://api.unsplash.com/search/photos?page=1&query=${searchTerm}`;
+  function loadImages() {
+    let URL = `https://api.unsplash.com/search/photos?page=${page}&query=${searchTerm}`;
     let Options = {
       method: "GET",
       headers: {
@@ -29,9 +25,37 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data.results);
-        setArr(data.results);
+        setArr((prev) => [...prev, ...data.results]);
       });
+  }
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    setToggle(false);
+
+    console.log("clicked");
+
+    loadImages();
   };
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      let vh = window.innerHeight;
+      console.log({ vh });
+
+      let scrollHeight = document.documentElement.scrollHeight;
+      console.log({ scrollHeight });
+
+      let scrollTop = document.documentElement.scrollTop;
+      console.log({ scrollTop });
+
+      if (vh + 10 + scrollTop >= scrollHeight) {
+        setPage((page) => (page += 1));
+        console.log(page);
+        loadImages();
+      }
+    });
+  }, [page]);
 
   const handleBookmark = () => {
     setToggle(true);
